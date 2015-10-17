@@ -1,0 +1,12 @@
+<tr class="new-game game">
+  <td class="center"><button title="Remove" class="remove-game">x</button></td>
+  <td class="match-name"></td>
+  <td width="20%" class="pick"></td>
+  <td class="odds"></td>
+  <td class='hidden'>
+    <%= f.input :home, as: :hidden, input_html: { class: 'home' } %>
+    <%= f.input :away, as: :hidden, input_html: { class: 'away' } %>
+    <%= f.input :bet, as: :hidden, input_html: { class: 'bet' } %>
+    <%= f.input :match_id, as: :hidden, input_html: { class: 'match-id' } %>
+  </td>
+</tr>

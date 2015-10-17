@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-fixed-main-content">
+  <% @by_league_time.each do |country, matches| %>
+	<div class="portlet box green">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="fa fa-cogs"></i><%= country %>
+			</div>
+			<div class="tools">
+				<a href="javascript:;" class="collapse">
+				</a>
+				<a href="#portlet-config" data-toggle="modal" class="config">
+				</a>
+				<a href="javascript:;" class="reload">
+				</a>
+				<a href="javascript:;" class="remove">
+				</a>
+			</div>
+		</div>
+		<div class="portlet-body flip-scroll">
+			<table class="table table-bordered table-striped table-condensed flip-content">
+			<thead class="flip-content">
+			<tr>
+				<th width="20%">
+					 Date & Time
+				</th>
+        <th>
+          Match
+        </th>
+				<th>
+					 1
+				</th>
+				<th>
+					 X
+				</th>
+				<th>
+					 2
+				</th>
+				<th>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+        
+        <% matches.each do |match| %>
+			<tr class='match'>
+				<td>
+					  <%= match["time"].to_time.strftime("%d %b %I:%M%p") %>
+				</td>
+        <td class='match-name'>
+        					  <%= "#{match["hometeam"]} vs #{match["awayteam"]}"%>
+        				</td>
+				<td>
+					 <%= link_to "#{match["oddwinh"]}", '#', class: 'make-bet', data: { id: match['matchid'], home: match['hometeam']} %>
+				</td>
+				<td>
+					 <%= link_to "#{match["oddwind"]}", '#', class: 'make-bet', data: { id: match['matchid']} %>
+				</td>
+				<td>
+					 <%= link_to "#{match["oddwina"]}", '#', class: 'make-bet', data: { id: match['matchid'], away: match['awayteam']} %>
+				</td>
+				<td class="numeric">
+					 +
+				</td>
+			</tr>
+      <% end %>
+			</tbody>
+			</table>
+		</div>
+	</div>
+  <% end %>
+  
+  <article class="content">
+    <%= simple_form_for @betslip do |f| %>
+        <header>
+          <h2>Your betslip</h2>
+        </header>
+        <section class="element">
+          <h2>bellow is your betslip data:</h2>
+          <hr>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Game</th>
+                <th>Pick</th>
+                <th>Odds</th>
+
+              </tr>
+            </thead>
+              <tbody class='games-container'>
+                <tr class='hidden'>
+                  <td>
+                   <%= link_to_add_association 'link', f, :games, class: 'add-new-game' %>
+                  </td>
+                  </tr>
+              </tbody>
+              <tfoot class='betslip-summary'>
+                <tr id="abc">
+                  <td></td>
+                  <td></td>
+                    <td class="center"><%= f.input :stake, as: :float, label: false, input_html: { value: nil, placeholder: '0.00', step: '0.01', min: '0.01', class: 'stake' } %></td>
+                  <td class="center stake"></td>
+                  <td class="center odds"></td>
+                  <td class="center winnings"></td>
+                </tr>
+              </tfoot>
+          </table>
+        </section>
+        <%= f.button :submit %>
+        <% end %>
+      </article>
+</div>

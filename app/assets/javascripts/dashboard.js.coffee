@@ -11,6 +11,8 @@ $ ->
       $('.new-game').appendTo('.games-container')
       $newGame = $('.new-game').removeClass('new-game')
       $newGame.attr('data-id', matchId)
+      $('tfoot').removeClass('hidden')
+      $('div').removeClass('hidden')
 
     $match = $(this).closest('.match')
     team =  $(this).data('home') || $(this).data('away') || 'draw'
@@ -58,9 +60,14 @@ $ ->
       $betslipSummary.find('.winnings').html('')
       $('.betslip-winnings').val(0)
       $('.create-betslip').addClass('hidden')
+
     else
       $betslipSummary.find('.stake').html(stakes.toFixed(2))
       $betslipSummary.find('.odds').html(odds.toFixed(2))
       $betslipSummary.find('.winnings').html("£#{winnings.toFixed(2)}")
       $('.betslip-winnings').val(winnings.toFixed(2))
       $('.create-betslip').removeClass('hidden')
+
+
+
+
